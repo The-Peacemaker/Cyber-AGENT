@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 echo "🔥 Installing Ultra Instinct Bug Hunter Dependencies..."
 
@@ -29,12 +30,9 @@ echo "[*] Installing SecretFinder..."
 git clone https://github.com/m4ll0k/SecretFinder.git tools/SecretFinder || true
 pip3 install -r tools/SecretFinder/requirements.txt
 
-# Ensure SQLMap exists
-if ! command -v sqlmap &> /dev/null; then
-    echo "[*] Installing SQLMap..."
-    git clone --depth 1 https://github.com/sqlmapproject/sqlmap.git tools/sqlmap || true
-    ln -s $(pwd)/tools/sqlmap/sqlmap.py /usr/local/bin/sqlmap
-fi
+# Install SQLMap
+echo "[*] Installing SQLMap..."
+sudo apt-get update && sudo apt-get install -y sqlmap
 
 echo "✅ Ultra Instinct tools installed!"
 figlet "Ready to Hunt" | lolcat
